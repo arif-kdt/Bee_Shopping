@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
 
     'apps.admin_module',
+    'apps.seller',
 
 ]
 
