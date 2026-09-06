@@ -14,9 +14,9 @@ class Product(models.Model):
 
     seller = models.ForeignKey(User, on_delete=models.CASCADE)
     grocery = models.ForeignKey(Grocery, on_delete=models.SET_NULL, null=True)
-    local_name = models.CharField(max_length=100, blank=True, unique=True)
+    local_name = models.CharField(max_length=100, blank=True)
     stock = models.PositiveBigIntegerField()
-    quantity = models.CharField(choices= UNIT_CHOICE, default='250G')
+    quantity = models.CharField(max_length=10, choices= UNIT_CHOICE, default='250G')
     count = models.PositiveBigIntegerField(default=0)
     price = models.DecimalField(max_digits=6, decimal_places=2)
 
@@ -26,7 +26,7 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.grocery.name
+        return self.grocery.name if self.grocery else "Unknown Product"
 
 
 
