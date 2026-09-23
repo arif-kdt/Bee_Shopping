@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product
+from .models import Product, ShopDetails, SellerProfile
 
 
 
@@ -16,3 +16,8 @@ class ProductAdmin(admin.ModelAdmin):
         return obj.get_quantity_display()
 
 admin.site.register(Product, ProductAdmin)
+
+
+admin.site.register(ShopDetails)
+
+admin.site.register(SellerProfile)

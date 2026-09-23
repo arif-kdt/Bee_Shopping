@@ -29,7 +29,31 @@ class Product(models.Model):
         return self.grocery.name if self.grocery else "Unknown Product"
 
 
+class ShopDetails(models.Model):
+    owner = models.OneToOneField(User, on_delete=models.CASCADE, related_name='shop_details')
+    shop_name = models.CharField(max_length=100, blank=False)
+    shop_address1 = models.CharField(blank=False)
+    shop_address2 = models.CharField(blank=True)
+    shop_address3 = models.CharField(blank=True)
+    shop_address_pin = models.PositiveIntegerField(default=682556, blank=True)
 
+    is_active = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.shop_name
+
+    
 class SellerProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='seller_profile')
-    shop_name = models.CharField(max_length=100)
+    shop_details = models.OneToOneField(ShopDetails, on_delete=models.CASCADE)
+
+    is_active = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"{self.user.first_name}-{self.shop_name}"
